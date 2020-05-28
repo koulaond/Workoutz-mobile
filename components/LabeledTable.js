@@ -13,20 +13,21 @@ const LabeledTable = props => {
 
     return (
         <View style={{height: dataCellHeight * (labelCol.length + 1), margin: tableMargin}}>
-            <Table style={{flexDirection: 'row'}} borderStyle={{borderWidth: 0.5, borderColor: 'white'}}>
+            <Table style={{flexDirection: 'row',}} borderStyle={styles.tableBorderStyle}>
                 <TableWrapper style={{width: labelWrapperWidth}}>
-                    <Cell data={topLeftCellLabel} style={{height: dataCellHeight, backgroundColor: 'white'}}/>
+                    <Cell data={topLeftCellLabel} style={{...{height: dataCellHeight}, ...styles.labelColAndRow}} textStyle={styles.labelColAndRowText}/>
                     <TableWrapper style={{flexDirection: 'row'}}>
                         <Col data={labelCol}
-                             style={styles.head}
-                             textStyle={styles.tableTextStyle}
+                             style={styles.labelColAndRow}
+                             textStyle={styles.labelColAndRowText}
                              heightArr={[dataCellHeight, dataCellHeight]}/>
                     </TableWrapper>
                 </TableWrapper>
 
                 <TableWrapper style={{width: dataWrapperWidth}}>
-                    <Row data={labelRow} width={dataCellWidth} height={dataCellHeight} style={{backgroundColor: 'white'}} textStyle={{color: Colors.primary900}}/>
-                    <Rows data={data} width={dataCellWidth} height={dataCellHeight}/>
+                    <Row data={labelRow} width={dataCellWidth} height={dataCellHeight}
+                         style={styles.labelColAndRow} textStyle={styles.labelColAndRowText}/>
+                    <Rows data={data} width={dataCellWidth} style={styles.dataCell} textStyle={styles.dataCellText} height={dataCellHeight}/>
                 </TableWrapper>
 
             </Table>
@@ -35,6 +36,28 @@ const LabeledTable = props => {
     );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    tableBorderStyle: {
+        borderWidth: 0.5,
+        borderColor: Colors.primary900
+    },
+    labelColAndRow: {
+        backgroundColor: Colors.gray100
+    },
+    labelColAndRowText: {
+        color: Colors.primary900,
+        textAlign: 'center',
+        fontFamily: 'Avenir-Light'
+    },
+    dataCell: {
+        backgroundColor: Colors.primary800
+    },
+    dataCellText: {
+        color: Colors.primary100,
+        textAlign: 'center',
+        fontFamily: 'Avenir-Light'
+    }
+
+});
 
 export default LabeledTable;

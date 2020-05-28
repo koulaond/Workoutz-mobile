@@ -90,7 +90,7 @@ const SuperSetDetails = props => {
     const seriesTableHeadArray = [];
 
     for (let i = 1; i <= series; i++) {
-        seriesTableHeadArray.push('Ser.' + i);
+        seriesTableHeadArray.push('S' + i);
     }
 
     const exerciseDetailsRows = exercises.map((ex, index) => {
@@ -106,6 +106,7 @@ const SuperSetDetails = props => {
             <View>
                 <TextField>SERIES AND REPETITIONS</TextField>
                <LabeledTable
+                   topLeftCellLabel="Exercises"
                    labelCol={exercises.map(ex => ex.name)}
                    labelRow={seriesTableHeadArray}
                    data={repsPerSeries}/>
@@ -159,10 +160,7 @@ const styles = StyleSheet.create({
     tableTextStyle: { color: 'white'},
     singleHead: { width: 80, height: 40, backgroundColor: 'white' },
 
-    tableBorderStyle: {
-        borderWidth: 1,
-        borderColor: Colors.primary900,
-    }
+
 });
 
 export default ExercisePresetDetailScreen;
