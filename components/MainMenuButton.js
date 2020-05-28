@@ -19,7 +19,7 @@ const MainMenuButton = props => {
 
 const styles = StyleSheet.create({
     button: {
-        borderColor: Colors.edge,
+        borderColor: Colors.primary200,
         borderWidth: 2,
         paddingVertical: 18,
         paddingHorizontal:25,
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         marginVertical: 22
     },
     text: {
-        color: Colors.fontPrimary,
+        color: Colors.gray100,
         fontSize: 30,
         textAlign: 'center'
     }

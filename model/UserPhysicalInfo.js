@@ -1,10 +1,16 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-const UserPhysicalInfo = props => {
+class UserPhysicalInfo {
 
-};
+    constructor(weight, height, eyesColor, hairColor, bodyType) {
+        this.weight = weight;
+        this.height = height;
+        this.eyesColor = eyesColor;
+        this.hairColor = hairColor;
+        this.bodyType = bodyType;
+    }
 
-const styles = StyleSheet.create({});
+}
 
 export default UserPhysicalInfo;

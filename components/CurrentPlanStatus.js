@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         marginTop: 5
     },
     text: {
-        color: Colors.fontPrimary
+        color: Colors.gray100
     }
 });
 

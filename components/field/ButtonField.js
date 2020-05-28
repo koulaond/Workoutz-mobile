@@ -30,7 +30,7 @@ const ButtonField = props => {
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: Colors.buttonMain,
+        backgroundColor: Colors.secondary500,
         width: Dimensions.get('window').width * 0.6,
         height: Dimensions.get('window').height / 25,
         borderRadius: 4,
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     text: {
-        color: Colors.background,
+        color: Colors.primary900,
         textAlign: 'center',
         textAlignVertical: 'center',
         flex: 1,

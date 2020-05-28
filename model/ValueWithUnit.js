@@ -1,10 +1,12 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-const WeightUnit = props => {
+class ValueWithUnit {
+    constructor(value, unit) {
+        this.value = value;
+        this.unit = unit;
+    }
+}
 
-};
 
-const styles = StyleSheet.create({});
-
-export default WeightUnit;
+export default ValueWithUnit;

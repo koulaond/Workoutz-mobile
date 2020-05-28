@@ -7,7 +7,7 @@ import LastWorkoutInfoField from "../components/field/specific/LastWorkoutInfoFi
 import Colors from "../constants/colors";
 import {USER, CURRENT_PLAN_DASHBOARD, LAST_WORKOUT_INFO} from "../data/dummy-data";
 
-const MainScreen = props => {
+const DashboardScreen = props => {
     const lastWorkoutInfo = LAST_WORKOUT_INFO;
     let lastWorkoutBtn = lastWorkoutInfo.result==='finished'
         ? <ButtonField style={styles.buttonSmall}><Text>RESULTS</Text></ButtonField>
@@ -16,7 +16,6 @@ const MainScreen = props => {
         <SafeAreaView style={styles.outerContainer}>
             <ScrollView>
                 <View style={styles.componentsContainer}>
-                    <AccountHeader {...USER}/>
                     <CurrentPlanStatus data={CURRENT_PLAN_DASHBOARD} style={styles.currentPlanStatus}/>
                     <View style={styles.buttonsContainer}>
                         <ButtonField style={styles.button}><Text>CONTINUE</Text></ButtonField>
@@ -42,7 +41,7 @@ const MainScreen = props => {
 const styles = StyleSheet.create({
     outerContainer: {
         flex: 1,
-        backgroundColor: Colors.background,
+        backgroundColor: Colors.primary900,
     },
     componentsContainer: {
         alignItems: 'center'
@@ -69,4 +68,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default MainScreen;
+export default DashboardScreen;

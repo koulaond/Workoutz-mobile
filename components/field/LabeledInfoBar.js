@@ -1,10 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import TextField from "./TextField";
-import moment from 'moment';
 import TextFieldLight from "./TextFieldLight";
-import Colors from '../../constants/colors';
-
 
 const LabeledInfoBar = props => {
 

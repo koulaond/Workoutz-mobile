@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-const Workout = props => {
+class Workout {
+    constructor() {
 
-};
-
-const styles = StyleSheet.create({});
+    }
+}
 
 export default Workout;

@@ -4,7 +4,7 @@ import * as Progress from 'react-native-progress';
 import Colors from "../../constants/colors";
 
 const CustomizedProgressBar = props => {
-    const {heightPercentage = 2, color = Colors.fontPrimary, value, valueMax} = props;
+    const {heightPercentage = 2, color = Colors.gray100, value, valueMax} = props;
     const heightFactor = heightPercentage / 100 ;
     const progressPerc = value / valueMax;
     return (

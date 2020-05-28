@@ -5,6 +5,7 @@ import Colors from '../../constants/colors';
 const TextField = props => {
     return (
         <Text
+            numberOfLines={props.numberOfLines || 1}
             style={
                 {
                     ...styles.customizedTextCommon,
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Avenir-Light'
     },
     customizedTextCommon: {
-        color: Colors.fontPrimary
+        color: Colors.gray100
     },
     customizedTextAndroid: {
         fontFamily: 'sans-serif'

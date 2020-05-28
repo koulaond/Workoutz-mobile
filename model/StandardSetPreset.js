@@ -1,10 +1,17 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
 
-const StandardSetPreset = props => {
+class StandardSetPreset {
 
-};
-
-const styles = StyleSheet.create({});
+    constructor(id, label, description,difficulty, exercise, series, repsPerSeries) {
+        this.difficulty = difficulty;
+        this.id = id;
+        this.presetType = 'STANDARD_SET';
+        this.label = label;
+        this.description = description;
+        this.exercise = exercise;
+        this.series = series;
+        this.repsPerSeries = repsPerSeries;
+    }
+}
 
 export default StandardSetPreset;

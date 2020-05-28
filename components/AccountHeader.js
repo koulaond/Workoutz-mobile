@@ -4,8 +4,9 @@ import Colors from '../constants/colors'
 import TextField from "./field/TextField";
 
 const AccountHeader = props => {
-    const {userName, firstName, lastName} = props;
-    const {weight, height} = props.details;
+    const {userName} = props;
+    const {firstName, lastName} = props.personalDetails;
+    const {weight, height} = props.physicalDetails;
 
 
     return (
@@ -36,7 +37,7 @@ const AccountHeader = props => {
 const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
-        borderColor: Colors.fontPrimary,
+        borderColor: Colors.gray100,
         borderBottomWidth: 1
 
     },
@@ -57,15 +58,15 @@ const styles = StyleSheet.create({
         height: '100%'
     },
     nickName: {
-        color: Colors.fontPrimary,
+        color: Colors.gray100,
         fontSize: 24
     },
     firstName: {
-        color: Colors.fontPrimary,
+        color: Colors.gray100,
         fontSize: 14,
     },
     text: {
-        color: Colors.fontPrimary,
+        color: Colors.gray100,
         fontSize: 12,
         marginRight: 6
     }

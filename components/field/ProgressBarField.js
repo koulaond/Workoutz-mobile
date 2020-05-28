@@ -9,7 +9,7 @@ const ProgressBarField = props => {
         label,
         barHeightPercentage,
         barColor,
-        textColor = Colors.fontPrimary,
+        textColor = Colors.gray100,
         value,
         valueMax,
         showRatio = true

@@ -24,11 +24,11 @@ const styles = StyleSheet.create({
 
     },
     resultComplete: {
-        color: Colors.fontSuccess,
+        color: Colors.green600,
         fontSize: 12
     },
     resultIncomplete: {
-        color: Colors.fontFail,
+        color: Colors.red500,
         fontSize: 12
     }
 });
