@@ -5,6 +5,7 @@ import Colors from '../constants/colors';
 import TextField from "../components/field/TextField";
 import TextFieldLight from "../components/field/TextFieldLight";
 import TagInput from 'react-native-tags-input';
+import DetailContainer from "../components/container/DetailContainer";
 
 
 const ExerciseDetailScreen = props => {
@@ -14,8 +15,7 @@ const ExerciseDetailScreen = props => {
     const allMuscles = exercise.muscles.map(muscle => muscle.muscleName);
 
     return (
-        <ScrollView style={{backgroundColor: Colors.primary900}}>
-            <View style={styles.component}>
+        <DetailContainer>
                 <View>
                     <TextFieldLight style={styles.label}>{exercise.name.toUpperCase()}</TextFieldLight>
                     <View style={{marginHorizontal: 5, flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -45,8 +45,7 @@ const ExerciseDetailScreen = props => {
                     <TextField>INSTRUCTIONS</TextField>
                     <TextField>{exercise.instructions}</TextField>
                 </View>
-            </View>
-        </ScrollView>
+        </DetailContainer>
     );
 };
 

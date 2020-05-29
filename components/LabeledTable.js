@@ -12,7 +12,7 @@ const LabeledTable = props => {
     const dataCellHeight = 30;
 
     return (
-        <View style={{height: dataCellHeight * (labelCol.length + 1), margin: tableMargin}}>
+        <View style={{height: dataCellHeight * (labelCol.length + 1), margin: tableMargin, borderRadius: 4, overflow: 'hidden'}}>
             <Table style={{flexDirection: 'row',}} borderStyle={styles.tableBorderStyle}>
                 <TableWrapper style={{width: labelWrapperWidth}}>
                     <Cell data={topLeftCellLabel} style={{...{height: dataCellHeight}, ...styles.labelColAndRow}} textStyle={styles.labelColAndRowText}/>

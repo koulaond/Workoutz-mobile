@@ -4,6 +4,19 @@ import {EXERCISE_PRESETS} from "../data/dummy-data";
 import Colors from '../constants/colors';
 import TextField from "../components/field/TextField";
 import LabeledTable from "../components/LabeledTable";
+import TextFieldLight from "../components/field/TextFieldLight";
+import DetailContainer from "../components/container/DetailContainer";
+
+const navigateToExercise = (navigation, exerciseId) => {
+    navigation.navigate(
+        {
+            routeName: 'ExerciseDetail',
+            params: {
+                exerciseId: exerciseId
+            }
+        }
+    );
+}
 
 const ExercisePresetDetailScreen = props => {
     const exercisePresetId = props.navigation.getParam('exercisePresetId');
@@ -16,9 +29,9 @@ const ExercisePresetDetailScreen = props => {
         PresetDetails = <SuperSetDetails data={exercisePreset} navigation={props.navigation}/>;
     }
     return (
-        <View style={styles.component}>
+        <DetailContainer>
             <View>
-                <TextField style={styles.label}>{exercisePreset.label}</TextField>
+                <TextFieldLight numberOfLines={-1} style={styles.label}>{exercisePreset.label}</TextFieldLight>
             </View>
             <View>
                 <TextField>DESCRIPTION</TextField>
@@ -51,7 +64,7 @@ const ExercisePresetDetailScreen = props => {
                     </View>
                 </View>
             </View>
-        </View>
+        </DetailContainer>
     );
 };
 
@@ -105,15 +118,29 @@ const SuperSetDetails = props => {
             </View>
             <View>
                 <TextField>SERIES AND REPETITIONS</TextField>
-               <LabeledTable
-                   topLeftCellLabel="Exercises"
-                   labelCol={exercises.map(ex => ex.name)}
-                   labelRow={seriesTableHeadArray}
-                   data={repsPerSeries}/>
+                <LabeledTable
+                    topLeftCellLabel="EXERCISES"
+                    labelCol={exercises.map(ex => {
+                        return <ColumnClickableLabelCell exercise={ex} navigation={props.navigation}/>;
+                    })}
+                    labelRow={seriesTableHeadArray}
+                    data={repsPerSeries}/>
             </View>
         </View>
     );
 }
+
+const ColumnClickableLabelCell = props => {
+    const {exercise, navigation} = props;
+    return (
+        <View>
+            <TouchableOpacity onPress={() => navigateToExercise(navigation, exercise.id)}>
+                <TextField style={{color: Colors.primary900, textAlign: 'center'}}>{exercise.name}</TextField>
+            </TouchableOpacity>
+        </View>
+    );
+
+};
 
 const ExerciseClickableDetail = props => {
     const exercise = props.exercise;
@@ -125,16 +152,7 @@ const ExerciseClickableDetail = props => {
         <View style={{flexDirection: 'row'}}>
             {index}
             <TextField>{exercise.name}</TextField>
-            <TouchableOpacity onPress={() => {
-                props.navigation.navigate(
-                    {
-                        routeName: 'ExerciseDetail',
-                        params: {
-                            exerciseId: exercise.id
-                        }
-                    }
-                );
-            }}>
+            <TouchableOpacity onPress={() => navigateToExercise(props.navigation, exercise.id)}>
                 <View>
                     <TextField>VIEW DETAILS</TextField>
                 </View>
@@ -149,7 +167,8 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     label: {
-        fontSize: 30
+        fontSize: 44,
+        textAlign: 'center'
     },
     tableContainerStyle: {
         borderRadius: 10,
@@ -157,8 +176,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         marginHorizontal: 15
     },
-    tableTextStyle: { color: 'white'},
-    singleHead: { width: 80, height: 40, backgroundColor: 'white' },
+    tableTextStyle: {color: 'white'},
+    singleHead: {width: 80, height: 40, backgroundColor: 'white'},
 
 
 });

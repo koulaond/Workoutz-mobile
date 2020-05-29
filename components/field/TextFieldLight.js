@@ -6,6 +6,7 @@ import Colors from "../../constants/colors";
 const TextFieldLight = props => {
     return (
         <TextField
+            numberOfLines={props.numberOfLines}
             style={
                 {
                     ...Platform.select({
