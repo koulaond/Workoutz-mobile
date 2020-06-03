@@ -16,7 +16,9 @@ const styles = StyleSheet.create({
     component: {
         flex: 1,
         alignItems: 'center',
+        justifyContent: 'center',
         paddingTop: '10%',
+        paddingHorizontal: '3%'
     }
 });
 

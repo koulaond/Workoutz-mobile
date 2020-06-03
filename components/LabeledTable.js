@@ -6,21 +6,23 @@ import Colors from '../constants/colors';
 const LabeledTable = props => {
     const {labelRow, labelCol, data, topLeftCellLabel} = props;
     const tableMargin = 10;
-    const labelWrapperWidth = 100;
-    const dataWrapperWidth = Dimensions.get('window').width - labelWrapperWidth - 2 * tableMargin;
+    const width = props.width ||  Dimensions.get('window').width;
+
+    const labelWrapperWidth = props.labelColWidth || width * 0.25;
+    const dataWrapperWidth = width - labelWrapperWidth - 2 * tableMargin;
     const dataCellWidth = dataWrapperWidth / labelRow.length;
     const dataCellHeight = 30;
-
+    const heightArr = labelCol.map(() => dataCellHeight); // just generate one height value many times
     return (
         <View style={{height: dataCellHeight * (labelCol.length + 1), margin: tableMargin, borderRadius: 4, overflow: 'hidden'}}>
-            <Table style={{flexDirection: 'row',}} borderStyle={styles.tableBorderStyle}>
+            <Table style={{flexDirection: 'row'}} borderStyle={styles.tableBorderStyle}>
                 <TableWrapper style={{width: labelWrapperWidth}}>
                     <Cell data={topLeftCellLabel} style={{...{height: dataCellHeight}, ...styles.labelColAndRow}} textStyle={styles.labelColAndRowText}/>
                     <TableWrapper style={{flexDirection: 'row'}}>
                         <Col data={labelCol}
                              style={styles.labelColAndRow}
                              textStyle={styles.labelColAndRowText}
-                             heightArr={[dataCellHeight, dataCellHeight]}/>
+                             heightArr={heightArr}/>
                     </TableWrapper>
                 </TableWrapper>
 

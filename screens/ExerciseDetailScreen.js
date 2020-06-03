@@ -6,6 +6,7 @@ import TextField from "../components/field/TextField";
 import TextFieldLight from "../components/field/TextFieldLight";
 import TagInput from 'react-native-tags-input';
 import DetailContainer from "../components/container/DetailContainer";
+import DetailContainerSection from "../components/container/DetailContainerSection";
 
 
 const ExerciseDetailScreen = props => {
@@ -16,35 +17,31 @@ const ExerciseDetailScreen = props => {
 
     return (
         <DetailContainer>
-                <View>
-                    <TextFieldLight style={styles.label}>{exercise.name.toUpperCase()}</TextFieldLight>
-                    <View style={{marginHorizontal: 5, flexDirection: 'row', justifyContent: 'space-between'}}>
-                        <TextField>{exercise.exerciseType.name.toUpperCase()}</TextField>
-                        <TextField>{exercise.difficulty.toUpperCase()}</TextField>
-                    </View>
+            <View>
+                <TextFieldLight style={styles.label}>{exercise.name}</TextFieldLight>
+                <View style={{marginHorizontal: 5, flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <TextField>{exercise.exerciseType.name.toUpperCase()}</TextField>
+                    <TextField>{exercise.difficulty.toUpperCase()}</TextField>
                 </View>
-                <View style={styles.section}>
-                    <TextField style={styles.subLabel}>DESCRIPTION</TextField>
-                    <TextField style={styles.description} numberOfLines={-1}>{exercise.description}</TextField>
-                </View>
-                <View style={styles.section}>
-                    <TextField style={styles.subLabel}>MUSCLES INCLUDED</TextField>
-                    <TagInput
-                        disabled={true}
-                        tags={{
-                            tag: "",
-                            tagsArray: allMuscles
-                        }}
-                        deleteIconStyles={{display: 'none'}}
-                        inputContainerStyle={{display: 'none'}}
-                        tagsViewStyle={{alignItems: 'center'}}
-
-                    />
-                </View>
-                <View style={styles.section}>
-                    <TextField>INSTRUCTIONS</TextField>
-                    <TextField>{exercise.instructions}</TextField>
-                </View>
+            </View>
+            <DetailContainerSection label="Description">
+                <TextField numberOfLines={-1} >{exercise.description}</TextField>
+            </DetailContainerSection>
+            <DetailContainerSection label="Muscles Included">
+                <TagInput
+                    disabled={true}
+                    tags={{
+                        tag: "",
+                        tagsArray: allMuscles
+                    }}
+                    deleteIconStyles={{display: 'none'}}
+                    inputContainerStyle={{display: 'none'}}
+                    tagsViewStyle={{alignItems: 'center'}}
+                />
+            </DetailContainerSection>
+            <DetailContainerSection label="Instructions">
+                <TextField>{exercise.instructions}</TextField>
+            </DetailContainerSection>
         </DetailContainer>
     );
 };
@@ -58,37 +55,22 @@ ExerciseDetailScreen.navigationOptions = (navigationData) => {
 };
 
 const styles = StyleSheet.create({
-    component: {
-        backgroundColor: Colors.primary900,
-        flex: 1,
-        alignItems: 'center',
-        paddingTop: '10%',
-
-    },
     label: {
-        fontSize: 44
+        fontSize: 42
     },
     subLabel: {
         marginVertical: 10,
         fontSize: 16,
         textAlign: 'center'
     },
-    section: {
-        marginTop: '15%'
-    },
-    description: {
-        fontSize: 16
-    },
     muscleText: {
-        color: 'black',
+        color: Colors.primary900,
         flex: 1,
         marginHorizontal: 8,
         height: 20,
-
     },
     muscleTextContainer: {
         flex: 1,
-        backgroundColor: 'white',
         marginHorizontal: 4,
         borderRadius: 4
     }
