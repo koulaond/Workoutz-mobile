@@ -66,13 +66,33 @@ export const EXERCISES = [
 ];
 
 export const EXERCISE_PRESETS = [
-    new StandardSetPreset(1, 'Bench Press 3x12', 'Standard set preset for Bench Press exercise with 3 series of 12 reps', 'high', EXERCISES[0], 3, [12, 10, 8]),
-    new StandardSetPreset(2, 'Front Squats 4x12', 'Standard set preset for Front Squats exercise with 3 series of 12 reps', 'low', EXERCISES[1], 3, [12, 12, 12]),
-    new StandardSetPreset(3, 'Pull Ups 3x12', 'Standard set preset for Pull Ups exercise with 3 series of 12 reps', 'medium', EXERCISES[2], 3, [12, 8, 6]),
-    new SuperSetPreset(4, 'Bench, Squats, Wide Pull ups', 'Super set preset for Bench Press, Front Squats and Wide Pull-ups exercises with 3 series of 12 and 10 reps. This super set is of high difficulty because it consists of two advanced and complex exercises.', 'high', [EXERCISES[0], EXERCISES[1], EXERCISES[2]], 3, [[12, 10, 8], [12, 12, 12], [12, 12, 12]]),
-    new SuperSetPreset(5, 'Front Squats + Pull Ups', 'Super set preset for Pull Ups exercises with 3 series of 10 and 8 reps', 'high', [EXERCISES[1], EXERCISES[2]], 3, [[8, 8, 8], [12, 10, 8]]),
-    new CirclePreset(6, 'Long Hard Tabata', 'This is super hard tabata consisting 3 sets about 4 cycles, 45 seconds per cycle and 15 seconds for rest.', 'high', [EXERCISES[1], EXERCISES[2], EXERCISES[0], EXERCISES[4]], 4, 3, 10, 45, 15, 60, 60),
+    new StandardSetPreset(1, 'Bench Press 3x12', 'Standard set preset for Bench Press exercise with 3 series of 12 reps', 'high', 1, 3, [12, 10, 8]),
+    new StandardSetPreset(2, 'Front Squats 4x12', 'Standard set preset for Front Squats exercise with 3 series of 12 reps', 'low', 2, 3, [12, 12, 12]),
+    new StandardSetPreset(3, 'Pull Ups 3x12', 'Standard set preset for Pull Ups exercise with 3 series of 12 reps', 'medium', 3, 3, [12, 8, 6]),
+    new SuperSetPreset(4, 'Bench, Squats, Wide Pull ups', 'Super set preset for Bench Press, Front Squats and Wide Pull-ups exercises with 3 series of 12 and 10 reps. This super set is of high difficulty because it consists of two advanced and complex exercises.', 'high', [1, 2, 3], 3, [[12, 10, 8], [12, 12, 12], [12, 12, 12]]),
+    new SuperSetPreset(5, 'Front Squats + Pull Ups', 'Super set preset for Pull Ups exercises with 3 series of 10 and 8 reps', 'high', [2, 3], 3, [[8, 8, 8], [12, 10, 8]]),
 
-    // has 8 cycles but only 5 exercises defined - should rotate these exercises as possible (1,2,3,4,5,1,2,3)
-    new CirclePreset(7, 'Short Tabata', 'Tabata with shorter 20 seconds cycle time but with more intensive load.', 'high', [EXERCISES[1], EXERCISES[2], EXERCISES[0], EXERCISES[4], EXERCISES[6]], 8, 2, 10, 20, 10, 30, 60)
+    new CirclePreset(
+        6,
+        'Long Hard Tabata',
+        'This is super hard tabata consisting 3 sets about 4 cycles, 45 seconds per cycle and 15 seconds for rest.',
+        'high',
+        4, 3, 10, 45, 15, 60, 60,
+        [
+            [0,1,2,3],  // set 1 size fits
+            [2,0,1,3,5], // set 2 size is too long - all exercises over the length are cut
+            [0,1] // set 3 size is too short - exercises are repeated until set is full - 0,1,0,1
+        ]),
+
+    new CirclePreset(
+        7,
+        'Short Tabata',
+        'Tabata with shorter 20 seconds cycle time but with more intensive load.',
+        'high',
+        8, 2, 10, 20, 10, 30, 60,
+        [
+            [0,1,2,3,1,1,3,4],
+            [0,1,2,3,1,1,3,4],
+            [0,1,2,3,1,1,3,4] // set 3 is not counted - only 2 sets are defined
+        ])
 ];

@@ -2,13 +2,13 @@ import React from 'react';
 
 class StandardSetPreset {
 
-    constructor(id, label, description,difficulty, exercise, series, repsPerSeries) {
+    constructor(id, label, description,difficulty, exerciseId, series, repsPerSeries) {
         this.difficulty = difficulty;
         this.id = id;
         this.presetType = 'STANDARD_SET';
         this.label = label;
         this.description = description;
-        this.exercise = exercise;
+        this.exerciseId = exerciseId;
         this.series = series;
         this.repsPerSeries = repsPerSeries;
     }

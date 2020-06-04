@@ -1,12 +1,13 @@
 import React from 'react';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
-import {EXERCISE_PRESETS} from "../data/dummy-data";
+import {EXERCISE_PRESETS, EXERCISES} from "../data/dummy-data";
 import Colors from '../constants/colors';
 import TextField from "../components/field/TextField";
 import LabeledTable from "../components/LabeledTable";
 import TextFieldLight from "../components/field/TextFieldLight";
 import DetailContainer from "../components/container/DetailContainer";
 import DetailContainerSection from "../components/container/DetailContainerSection";
+import UnderlinedLabeledField from "../components/field/UnderlinedLabeledField";
 
 const navigateToExercise = (navigation, exerciseId) => {
     navigation.navigate(
@@ -22,10 +23,10 @@ const navigateToExercise = (navigation, exerciseId) => {
 const generateOrderedLabelsArray = num => {
     let labelsArray = [];
     for (let i = 1; i <= num; i++) {
-        if (i === 1) labelsArray.push(i+'st');
-        else if (i === 2) labelsArray.push(i+'nd');
-        else if (i === 3) labelsArray.push(i+'rd');
-        else labelsArray.push(i+'th');
+        if (i === 1) labelsArray.push(i + 'st');
+        else if (i === 2) labelsArray.push(i + 'nd');
+        else if (i === 3) labelsArray.push(i + 'rd');
+        else labelsArray.push(i + 'th');
     }
     return labelsArray;
 };
@@ -48,7 +49,7 @@ const ExercisePresetDetailScreen = props => {
     } else if (exercisePreset.presetType === 'SUPER_SET') {
         PresetDetails = <SuperSetDetails data={exercisePreset} navigation={props.navigation}/>;
     } else if (exercisePreset.presetType === 'CIRCLE') {
-        PresetDetails = <CircleDetails data={exercisePreset} navigation={props.navigation} />
+        PresetDetails = <CircleDetails data={exercisePreset} navigation={props.navigation}/>
     }
     return (
         <DetailContainer>
@@ -91,9 +92,10 @@ ExercisePresetDetailScreen.navigationOptions = (navigationData) => {
 
 const StandardSetDetails = props => {
     const exercisePreset = props.data;
-    const {exercise, series} = exercisePreset;
-    const repsText = exercisePreset.repsPerSeries.join(', ');
+    const {exerciseId, series} = exercisePreset;
     const seriesTableLabels = generateOrderedLabelsArray(series);
+
+    const exercise = EXERCISES.find(ex => ex.id === exerciseId);
 
     return (
         <View style={{alignItems: 'center'}}>
@@ -123,8 +125,9 @@ const StandardSetDetails = props => {
 
 const SuperSetDetails = props => {
     const exercisePreset = props.data;
-    const {exercises, series, repsPerSeries} = exercisePreset;
+    const {exerciseIds, series, repsPerSeries} = exercisePreset;
 
+    const exercises = exerciseIds.map(id => EXERCISES.find(exercise => exercise.id === id));
     const seriesTableHeadArray = [];
 
     for (let i = 1; i <= series; i++) {
@@ -165,9 +168,21 @@ const SuperSetDetails = props => {
 }
 
 const CircleDetails = props => {
+    const exercisePreset = props.data;
+    const {cycles, sets, timePrepare, timeWork, timeRest, timeBetweenSets, timeCoolDown} = exercisePreset;
     return (
-        <View style={{alignItems: 'center'}}>
-            <DetailContainerSection label="Exercises">
+        <View style={{alignItems: 'center', justifyContent: 'center'}}>
+            <DetailContainerSection label="BASIC INFO">
+                <UnderlinedLabeledField label="CYCLES" value={cycles}/>
+                <UnderlinedLabeledField label="SETS" value={sets}/>
+                <UnderlinedLabeledField label="PREPARE TIME" value={timePrepare + ' sec'}/>
+                <UnderlinedLabeledField label="WORK TIME" value={timeWork + ' sec'}/>
+                <UnderlinedLabeledField label="REST TIME" value={timeRest + ' sec'}/>
+                <UnderlinedLabeledField label="REST BETWEEN SETS" value={timeBetweenSets + ' sec'}/>
+                <UnderlinedLabeledField label="COOL DOWN" value={timeCoolDown + ' sec'}/>
+            </DetailContainerSection>
+
+            <DetailContainerSection label="SCHEMA">
 
             </DetailContainerSection>
         </View>
