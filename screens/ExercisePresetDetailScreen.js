@@ -8,6 +8,7 @@ import TextFieldLight from "../components/field/TextFieldLight";
 import DetailContainer from "../components/container/DetailContainer";
 import DetailContainerSection from "../components/container/DetailContainerSection";
 import UnderlinedLabeledField from "../components/field/UnderlinedLabeledField";
+import CircleSchemaSetContainer from "../components/container/CircleSchemaSetContainer";
 
 const navigateToExercise = (navigation, exerciseId) => {
     navigation.navigate(
@@ -168,8 +169,18 @@ const SuperSetDetails = props => {
 }
 
 const CircleDetails = props => {
-    const exercisePreset = props.data;
-    const {cycles, sets, timePrepare, timeWork, timeRest, timeBetweenSets, timeCoolDown} = exercisePreset;
+    const {data, navigation} = props;
+    const {cycles, sets, timePrepare, timeWork, timeRest, timeBetweenSets, timeCoolDown, schema} = data;
+    const setContainers = schema.map((set, index) => {
+        return <CircleSchemaSetContainer timeWork={timeWork}
+                                         key={index}
+                                         timeRest={timeRest}
+                                         exerciseIds={schema[index]}
+                                         setNumber={index + 1}
+                                         navigation={navigation}
+
+        />
+    });
     return (
         <View style={{alignItems: 'center', justifyContent: 'center'}}>
             <DetailContainerSection label="BASIC INFO">
@@ -183,7 +194,9 @@ const CircleDetails = props => {
             </DetailContainerSection>
 
             <DetailContainerSection label="SCHEMA">
-
+                <View style={{flexDirection: 'row'}}>
+                    {setContainers}
+                </View>
             </DetailContainerSection>
         </View>
     );

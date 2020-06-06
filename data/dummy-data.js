@@ -79,20 +79,19 @@ export const EXERCISE_PRESETS = [
         'high',
         4, 3, 10, 45, 15, 60, 60,
         [
-            [0,1,2,3],  // set 1 size fits
-            [2,0,1,3,5], // set 2 size is too long - all exercises over the length are cut
-            [0,1] // set 3 size is too short - exercises are repeated until set is full - 0,1,0,1
+            [1,2,3,4],  // set 1 size fits
+            [3,1,2,4], // set 2 size is too long - all exercises over the length are cut
+            [1,2,1,2] // set 3 size is too short - missing cells stay with UNDEFINED message
         ]),
 
-    new CirclePreset(
-        7,
-        'Short Tabata',
-        'Tabata with shorter 20 seconds cycle time but with more intensive load.',
-        'high',
-        8, 2, 10, 20, 10, 30, 60,
-        [
-            [0,1,2,3,1,1,3,4],
-            [0,1,2,3,1,1,3,4],
-            [0,1,2,3,1,1,3,4] // set 3 is not counted - only 2 sets are defined
-        ])
+        new CirclePreset(
+            7,
+            'Short Tabata',
+            'Tabata with shorter 20 seconds cycle time but with more intensive load.',
+            'high',
+            8, 2, 10, 20, 10, 30, 60,
+            [
+                [1, 2, 3,4, 2, 2, 3, 4],
+                [1, 2, 3,4, 2, 2, 3, 4]
+            ])
 ];

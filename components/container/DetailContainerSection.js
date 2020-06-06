@@ -4,7 +4,7 @@ import TextField from "../field/TextField";
 
 const DetailContainerSection = props => {
     return (
-        <View style={{...styles.section, ...props.style, ...props.style}}>
+        <View style={{...styles.section, ...props.style}}>
             <View>
                 <TextField style={styles.sectionLabel}>{props.label.toUpperCase()}</TextField>
             </View>
