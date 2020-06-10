@@ -1,13 +1,13 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-
 class Muscles {
-    constructor(id, muscleName, bodyPart) {
+     id: string;
+     muscleName: string;
+     bodyPart: string;
+
+    constructor(id: string, muscleName: string, bodyPart: string) {
         this.id = id;
         this.muscleName = muscleName;
         this.bodyPart = bodyPart;
     }
 }
-
 
 export default Muscles;

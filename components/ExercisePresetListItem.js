@@ -1,40 +1,35 @@
 import React from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    TouchableOpacity,
-    TouchableNativeFeedback,
-    Platform
-} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import TextField from "./field/TextField";
+import ListItem from "./ListItem";
+import Colors from "../constants/colors";
 
 const ExercisePresetListItem = props => {
-    let TouchableComponent = TouchableOpacity;
-    if (Platform.OS === 'android' && Platform.Version >= 21) {
-        TouchableComponent = TouchableNativeFeedback;
+    const {label, presetType, difficulty} = props.exercisePreset;
+    let iconName = 'dice-one';
+    let color = Colors.primary100;
+    if (presetType === 'SUPER_SET') {
+        iconName = 'dice-two';
+        color = Colors.secondary100
+    } else if (presetType === 'CIRCLE') {
+        iconName = 'circle';
+        color = Colors.red100;
     }
-
-    const data = props.exercisePreset;
     return (
-        <View style={styles.component}>
-            <TouchableComponent onPress={props.onPressPreset}>
-                <View style={styles.component}>
-                    <View>
-                        <TextField style={{...styles.text, ...styles.textLabel}}>{data.label}</TextField>
-                        <TextField style={styles.text}>{data.presetType}</TextField>
-                    </View>
-                    <View>
-                        <TextField style={styles.text}>DIFFICULTY: {data.difficulty}</TextField>
-                    </View>
-                    <View></View>
-                </View>
-            </TouchableComponent>
-        </View>
+        <ListItem
+            backgroundColor={color}
+            icon={iconName}
+            onPress={props.onPress}>
+            <View>
+                <TextField style={{...styles.text, ...styles.textLabel}}>{label}</TextField>
+                <TextField style={styles.text}>{presetType}</TextField>
+            </View>
+            <View>
+                <TextField style={styles.text}>DIFFICULTY: {difficulty}</TextField>
+            </View>
+        </ListItem>
     );
 };
-
-
 
 const styles = StyleSheet.create({
     component: {

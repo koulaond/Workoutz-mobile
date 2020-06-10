@@ -9,6 +9,8 @@ import DetailContainer from "../components/container/DetailContainer";
 import DetailContainerSection from "../components/container/DetailContainerSection";
 import UnderlinedLabeledField from "../components/field/UnderlinedLabeledField";
 import CircleSchemaSetContainer from "../components/container/CircleSchemaSetContainer";
+import IncludeIn from "../components/IncludeIn";
+import PresetType from "../model/PresetType";
 
 const navigateToExercise = (navigation, exerciseId) => {
     navigation.navigate(
@@ -45,11 +47,11 @@ const ExercisePresetDetailScreen = props => {
     const exercisePreset = EXERCISE_PRESETS.find(ex => ex.id === exercisePresetId);
     let PresetDetails;
 
-    if (exercisePreset.presetType === 'STANDARD_SET') {
+    if (exercisePreset.presetType === PresetType.STANDARD_SET) {
         PresetDetails = <StandardSetDetails data={exercisePreset} navigation={props.navigation}/>;
-    } else if (exercisePreset.presetType === 'SUPER_SET') {
+    } else if (exercisePreset.presetType ===PresetType.SUPER_SET) {
         PresetDetails = <SuperSetDetails data={exercisePreset} navigation={props.navigation}/>;
-    } else if (exercisePreset.presetType === 'CIRCLE') {
+    } else if (exercisePreset.presetType === PresetType.CIRCLE) {
         PresetDetails = <CircleDetails data={exercisePreset} navigation={props.navigation}/>
     }
     return (
@@ -62,22 +64,8 @@ const ExercisePresetDetailScreen = props => {
             </DetailContainerSection>
             {PresetDetails}
             <DetailContainerSection label="Included In">
-                <View style={styles.includedInComponent}>
-                    <TextField>3 trainings</TextField>
-                    <TouchableOpacity>
-                        <View>
-                            <TextField>VIEW</TextField>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.includedInComponent}>
-                    <TextField>8 daily workouts</TextField>
-                    <TouchableOpacity>
-                        <View>
-                            <TextField>VIEW</TextField>
-                        </View>
-                    </TouchableOpacity>
-                </View>
+               <IncludeIn value={3} label="training" viewMethood={() => {}}/>
+               <IncludeIn value={8} label="daily workout" viewMethood={() => {}}/>
             </DetailContainerSection>
         </DetailContainer>
     );
@@ -221,11 +209,6 @@ const styles = StyleSheet.create({
     },
     exerciseClickableDetailPart: {
         marginHorizontal: 20
-    },
-    includedInComponent: {
-        flexDirection: 'row',
-        width: '60%',
-        justifyContent: 'space-between'
     }
 });
 

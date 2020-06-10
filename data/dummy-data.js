@@ -12,6 +12,8 @@ import SuperSetPreset from "../model/SuperSetPreset";
 import Muscles from "../model/Muscles";
 import Exercise from "../model/Exercise";
 import CirclePreset from "../model/CirclePreset";
+import DailyWorkout from "../model/DailyWorkout";
+import DailyWorkoutExerciseUnit from "../model/DailyWorkoutExerciseUnit";
 
 export const USER = new User(
     1,
@@ -79,19 +81,49 @@ export const EXERCISE_PRESETS = [
         'high',
         4, 3, 10, 45, 15, 60, 60,
         [
-            [1,2,3,4],  // set 1 size fits
-            [3,1,2,4], // set 2 size is too long - all exercises over the length are cut
-            [1,2,1,2] // set 3 size is too short - missing cells stay with UNDEFINED message
+            [1, 2, 3, 4],  // set 1 size fits
+            [3, 1, 2, 4], // set 2 size is too long - all exercises over the length are cut
+            [1, 2, 1, 2] // set 3 size is too short - missing cells stay with UNDEFINED message
         ]),
 
-        new CirclePreset(
-            7,
-            'Short Tabata',
-            'Tabata with shorter 20 seconds cycle time but with more intensive load.',
-            'high',
-            8, 2, 10, 20, 10, 30, 60,
-            [
-                [1, 2, 3,4, 2, 2, 3, 4],
-                [1, 2, 3,4, 2, 2, 3, 4]
-            ])
+    new CirclePreset(
+        7,
+        'Short Tabata',
+        'Tabata with shorter 20 seconds cycle time but with more intensive load.',
+        'high',
+        8, 2, 10, 20, 10, 30, 60,
+        [
+            [1, 2, 3, 4, 2, 2, 3, 4],
+            [1, 2, 3, 4, 2, 2, 3, 4]
+        ])
+];
+
+export const DAILY_WORKOUTS = [
+    new DailyWorkout(
+        1,
+        "Morning Workout",
+        "This is morning boost daily workout for everyday's morning.",
+        "Currently without a note.",
+        [
+            new DailyWorkoutExerciseUnit(0, 1),
+            new DailyWorkoutExerciseUnit(1, 2),
+            new DailyWorkoutExerciseUnit(2, 3),
+            new DailyWorkoutExerciseUnit(3, 4),
+            new DailyWorkoutExerciseUnit(4, 5)
+        ]
+    ),
+    new DailyWorkout(
+        2,
+        "Super Tabata Workout",
+        "Workout consisted of tabata exercises only.",
+        "Only tabatas",
+        [
+            new DailyWorkoutExerciseUnit(0, 6),
+            new DailyWorkoutExerciseUnit(1, 7)
+        ]
+    ),
+];
+
+export const EXERCISE_PRESET_RESULTS = [
+
 ];

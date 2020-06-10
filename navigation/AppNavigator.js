@@ -10,6 +10,8 @@ import ExercisesScreen from "../screens/ExercisesScreen";
 import ExerciseDetailScreen from "../screens/ExerciseDetailScreen";
 import ExercisePresetsScreen from "../screens/ExercisePresetsScreen";
 import ExercisePresetDetailScreen from "../screens/ExercisePresetDetailScreen";
+import DailyWorkoutsScreen from "../screens/DailyWorkoutsScreen";
+import DailyWorkoutDetailScreen from "../screens/DailyWorkoutDetailScreen";
 
 const headerMenuButtonOptions = (title, navData) => {
     return <HeaderButtons HeaderButtonComponent={HeaderMenuButton}>
@@ -107,6 +109,47 @@ const ExercisePresetsNavigator = createStackNavigator(
     }
 );
 
+const DailyWorkoutNavigator = createStackNavigator(
+    {
+        DailyWorkouts: {
+            screen: DailyWorkoutsScreen,
+            navigationOptions:  (navData) => {
+                return {
+                    headerTitle: 'DAILY WORKOUTS',
+                    headerLeft: headerMenuButtonOptions("Menu", navData)
+                };
+            }
+        },
+        DailyWorkoutDetail: {
+            screen: DailyWorkoutDetailScreen,
+            navigationOptions:  (navData) => {
+                return {
+                    headerLeft: headerMenuButtonOptions("Menu", navData)
+                };
+            }
+        },
+        ExercisePresetDetail: {
+            screen: ExercisePresetDetailScreen,
+            navigationOptions: (navData) => {
+                return {
+                    headerLeft: headerMenuButtonOptions("Menu", navData)
+                };
+            }
+        },
+        ExerciseDetail: {
+            screen: ExerciseDetailScreen,
+            navigationOptions: (navData) => {
+                return {
+                    headerLeft: headerMenuButtonOptions("Menu", navData)
+                };
+            }
+        }
+    },
+    {
+        defaultNavigationOptions: defaultStackNavOptions
+    }
+);
+
 const AppNavigator = createDrawerNavigator({
         Dashboard: {
             screen: DashboardNavigator,
@@ -121,7 +164,7 @@ const AppNavigator = createDrawerNavigator({
             }
         },
         DailyWorkouts: {
-            screen: ExercisesScreen,
+            screen: DailyWorkoutNavigator,
             navigationOptions: {
                 drawerLabel: "Daily Workouts"
             }

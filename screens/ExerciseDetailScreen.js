@@ -7,6 +7,7 @@ import TextFieldLight from "../components/field/TextFieldLight";
 import TagInput from 'react-native-tags-input';
 import DetailContainer from "../components/container/DetailContainer";
 import DetailContainerSection from "../components/container/DetailContainerSection";
+import IncludeIn from "../components/IncludeIn";
 
 
 const ExerciseDetailScreen = props => {
@@ -34,6 +35,7 @@ const ExerciseDetailScreen = props => {
                         tag: "",
                         tagsArray: allMuscles
                     }}
+                    containerStyle={{justifyContent: 'center', flexDirection: 'row'}}
                     deleteIconStyles={{display: 'none'}}
                     inputContainerStyle={{display: 'none'}}
                     tagsViewStyle={{alignItems: 'center'}}
@@ -41,6 +43,11 @@ const ExerciseDetailScreen = props => {
             </DetailContainerSection>
             <DetailContainerSection label="Instructions">
                 <TextField>{exercise.instructions}</TextField>
+            </DetailContainerSection>
+            <DetailContainerSection label="Included In">
+                <IncludeIn value={3} label="training" viewMethood={() => {}}/>
+                <IncludeIn value={8} label="daily workout" viewMethood={() => {}}/>
+                <IncludeIn value={6} label="exercise presets" viewMethood={() => {}}/>
             </DetailContainerSection>
         </DetailContainer>
     );

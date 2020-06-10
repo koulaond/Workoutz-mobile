@@ -1,59 +1,37 @@
 import React from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    TouchableOpacity,
-    TouchableNativeFeedback,
-    Platform
-} from 'react-native';
-import {FontAwesome5} from '@expo/vector-icons';
+import {View, StyleSheet} from 'react-native';
 import Colors from '../constants/colors';
 import TextField from "./field/TextField";
+import ListItem from "./ListItem";
 
 const ExerciseListItem = props => {
-    let TouchableComponent = TouchableOpacity;
-    if (Platform.OS === 'android' && Platform.Version >= 21) {
-        TouchableComponent = TouchableNativeFeedback;
-    }
-    const {muscles, exerciseType} = props.exercise;
-
+    const {name, muscles, exerciseType} = props.exercise;
     let iconName = 'dumbbell';
-    let color = Colors.primary200;
+    let color = Colors.primary100;
     if (exerciseType.name === 'Endurance') {
         iconName = 'running';
-        color = Colors.primary500
+        color = Colors.secondary100
     } else if (exerciseType.name === 'Flexibility') {
         iconName = 'praying-hands';
-        color = Colors.primary700;
+        color = Colors.red100;
     }
     let musclesAll = muscles.map(muscle => muscle.muscleName).join(', ');
-
     return (
-        <View style={{...styles.component, ...{backgroundColor: color}}}>
-            <TouchableComponent onPress={props.onPressExercise}>
-                <View style={styles.labelRow}>
-                    <TextField style={styles.label}>{props.exercise.name}</TextField>
-                </View>
-                <View style={styles.detailRow}>
-                    <TextField style={styles.textField}>Muscles: {musclesAll}</TextField>
-                </View>
-            </TouchableComponent>
-        </View>
+        <ListItem
+            backgroundColor={color}
+            icon={iconName}
+            onPress={props.onPress}>
+            <View style={styles.labelRow}>
+                <TextField style={styles.label}>{name}</TextField>
+            </View>
+            <View style={styles.detailRow}>
+                <TextField style={styles.textField}>Muscles: {musclesAll}</TextField>
+            </View>
+        </ListItem>
     );
 };
 
 const styles = StyleSheet.create({
-    component: {
-        width: '100%',
-        marginVertical: 10,
-        backgroundColor: '#ccc',
-        borderRadius: 10
-    },
-    icon: {
-        zIndex: 1,
-        marginHorizontal: 12,
-    },
     labelRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -62,8 +40,6 @@ const styles = StyleSheet.create({
     label: {
         color: 'black',
         fontSize: 24,
-        marginVertical: 5,
-        marginHorizontal: 10,
         textAlign: 'center',
         zIndex: 2,
     },
@@ -73,8 +49,7 @@ const styles = StyleSheet.create({
     detailRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginHorizontal: 10,
-        marginBottom: 5
+
     }
 });
 

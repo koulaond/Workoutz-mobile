@@ -10,7 +10,7 @@ const ExercisePresetsScreen = props => {
     const renderExercisePreset = itemData => {
         return <ExercisePresetListItem
             exercisePreset={itemData.item}
-            onPressPreset={() => {
+            onPress={() => {
                 props.navigation.navigate(
                     {
                         routeName: 'ExercisePresetDetail',
@@ -23,6 +23,7 @@ const ExercisePresetsScreen = props => {
             }
         />;
     };
+
     return (
         <View style={styles.component}>
             <ItemList

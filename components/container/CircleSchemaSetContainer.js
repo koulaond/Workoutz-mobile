@@ -23,11 +23,11 @@ const CircleSchemaSetContainer = props => {
         />;
     })
         .reduce((prev, curr) => {
-            const rest = <ExerciseSchemaCell exerciseName="REST" time={timeRest} isRest={true}/>;
+            const rest = <ExerciseSchemaCell key={'REST_' + prev} exerciseName="REST" time={timeRest} isRest={true}/>;
             return [prev, rest, curr];
         });
     return (
-        <View style={styles.container}>
+        <View style={styles.container} key={setNumber}>
             <TextField style={{textAlign: 'center', fontSize: 16}}>SET {setNumber}</TextField>
             {exerciseCells}
         </View>

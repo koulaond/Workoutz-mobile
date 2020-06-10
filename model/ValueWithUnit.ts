@@ -1,12 +1,11 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-
 class ValueWithUnit {
-    constructor(value, unit) {
+    value: number;
+    unit: string;
+
+    constructor(value: number, unit: string) {
         this.value = value;
         this.unit = unit;
     }
 }
-
 
 export default ValueWithUnit;
