@@ -11,6 +11,14 @@ import UnderlinedLabeledField from "../components/field/UnderlinedLabeledField";
 import CircleSchemaSetContainer from "../components/container/CircleSchemaSetContainer";
 import IncludeIn from "../components/IncludeIn";
 import PresetType from "../model/PresetType";
+import {changeActualPreset} from '../store/actions/exercisePresets'
+import exercisePresetsReducer from "../store/reducers/exercisePresets";
+import {combineReducers, createStore} from 'redux'
+import {useSelector, useStore} from "react-redux";
+
+const rootReducer = combineReducers({
+    exercisePresets: exercisePresetsReducer
+});
 
 const navigateToExercise = (navigation, exerciseId) => {
     navigation.navigate(
@@ -43,8 +51,7 @@ const createClickableDetail = (id, navigation) => {
 };
 
 const ExercisePresetDetailScreen = props => {
-    const exercisePresetId = props.navigation.getParam('exercisePresetId');
-    const exercisePreset = EXERCISE_PRESETS.find(ex => ex.id === exercisePresetId);
+    const exercisePreset = useSelector(state => state.exercisePresets.actualExercisePreset);
     let PresetDetails;
 
     if (exercisePreset.presetType === PresetType.STANDARD_SET) {
@@ -72,10 +79,9 @@ const ExercisePresetDetailScreen = props => {
 };
 
 ExercisePresetDetailScreen.navigationOptions = (navigationData) => {
-    const exercisePresetId = navigationData.navigation.getParam('exercisePresetId');
-    const exercisePreset = EXERCISE_PRESETS.find(ex => ex.id === exercisePresetId);
+    const exercisePresetLabel = navigationData.navigation.getParam('exercisePresetLabel');
     return {
-        headerTitle: exercisePreset.label
+        headerTitle: exercisePresetLabel
     };
 };
 

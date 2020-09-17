@@ -1,4 +1,5 @@
 import Difficulty from "./Difficulty";
+import PresetType from "./PresetType";
 
 class SuperSetPreset {
     id: string;
@@ -8,6 +9,7 @@ class SuperSetPreset {
     exerciseIds: string[];
     series: number[];
     repsPerSeries: number[][];
+    presetType: PresetType;
 
     constructor(id: string,
                 label: string,
@@ -23,6 +25,7 @@ class SuperSetPreset {
         this.exerciseIds = exerciseIds;
         this.series = series;
         this.repsPerSeries = repsPerSeries;
+        this.presetType = PresetType.SUPER_SET;
     }
 }
 

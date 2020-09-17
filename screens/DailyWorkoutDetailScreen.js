@@ -32,9 +32,12 @@ const DailyWorkoutDetailScreen = props => {
     const workoutId = props.navigation.getParam('workoutId');
     const workout = DAILY_WORKOUTS.find(wo => wo.id === workoutId);
 
-    const exercisePresetsDetailCols = workout.exerciseUnits.map(exUnit => EXERCISE_PRESETS.find(preset => preset.id === exUnit.exercisePresetId)).map((preset) => {
-        return <TextField style={{color: Colors.primary900, textAlign: 'center'}} key={preset.id}>{preset.label}</TextField>
-    });
+    const exercisePresetsDetailCols = workout.exerciseUnits
+        .map(exUnit => EXERCISE_PRESETS.find(preset => preset.id === exUnit.exercisePresetId))
+        .map((preset) => {
+            return <TextField style={{color: Colors.primary900, textAlign: 'center'}}
+                              key={preset.id}>{preset.label}</TextField>
+        });
 
 
     const detailsButtons = workout.exerciseUnits.map(exUnit => {
@@ -47,10 +50,10 @@ const DailyWorkoutDetailScreen = props => {
                 <TextFieldLight style={styles.label}>{workout.name}</TextFieldLight>
             </View>
             <DetailContainerSection label="Description">
-                <TextField numberOfLines={-1} >{workout.description}</TextField>
+                <TextField numberOfLines={-1}>{workout.description}</TextField>
             </DetailContainerSection>
             <DetailContainerSection label="Additional Note">
-                <TextField numberOfLines={-1} >{workout.note}</TextField>
+                <TextField numberOfLines={-1}>{workout.note}</TextField>
             </DetailContainerSection>
             <DetailContainerSection label="Schema">
                 <LabeledTable
@@ -63,7 +66,8 @@ const DailyWorkoutDetailScreen = props => {
                 />
             </DetailContainerSection>
             <DetailContainerSection label="Included In">
-                <IncludeIn value={3} label="training" viewMethood={() => {}}/>
+                <IncludeIn value={3} label="training" viewMethood={() => {
+                }}/>
             </DetailContainerSection>
         </DetailContainer>
 

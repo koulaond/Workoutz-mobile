@@ -1,11 +1,14 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import ItemList from "../components/ItemList";
-import {DAILY_WORKOUTS} from "../data/dummy-data";
 import DailyWorkoutListItem from "../components/DailyWorkoutListItem";
 import Colors from "../constants/colors";
+import {useSelector} from "react-redux";
 
 const DailyWorkoutsScreen = props => {
+
+    const dailyWorkouts = useSelector(state => state.dailyWorkouts.allDailyWorkouts);
+
     const renderDailyWorkout = itemData => {
         return <DailyWorkoutListItem
             dailyWorkout={itemData.item}
@@ -24,7 +27,7 @@ const DailyWorkoutsScreen = props => {
     return (
         <View style={styles.component}>
             <ItemList
-                listData={DAILY_WORKOUTS}
+                listData={dailyWorkouts}
                 renderItemFunction={renderDailyWorkout}/>
         </View>
     );

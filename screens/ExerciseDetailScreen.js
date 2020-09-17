@@ -8,11 +8,11 @@ import TagInput from 'react-native-tags-input';
 import DetailContainer from "../components/container/DetailContainer";
 import DetailContainerSection from "../components/container/DetailContainerSection";
 import IncludeIn from "../components/IncludeIn";
+import {useSelector} from "react-redux";
 
 
 const ExerciseDetailScreen = props => {
-    const exerciseId = props.navigation.getParam('exerciseId');
-    const exercise = EXERCISES.find(ex => ex.id === exerciseId);
+    const exercise = useSelector(state => state.exercises.actualExercise);
 
     const allMuscles = exercise.muscles.map(muscle => muscle.muscleName);
 
@@ -54,10 +54,9 @@ const ExerciseDetailScreen = props => {
 };
 
 ExerciseDetailScreen.navigationOptions = (navigationData) => {
-    const exerciseId = navigationData.navigation.getParam('exerciseId');
-    const exercise = EXERCISES.find(ex => ex.id === exerciseId);
+    const exerciseLabel = navigationData.navigation.getParam('exerciseLabel');
     return {
-        headerTitle: exercise.name
+        headerTitle: exerciseLabel
     };
 };
 

@@ -1,30 +1,36 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {EXERCISES} from "../data/dummy-data";
+import {useSelector, useStore} from "react-redux";
 import ItemList from "../components/ItemList";
 import Colors from '../constants/colors';
 import ExerciseListItem from "../components/ExerciseListItem";
+import {changeActualExercise} from "../store/actions/exercises";
 
 const ExercisesScreen = props => {
+    const store = useStore();
+    const exercises = useSelector(state => state.exercises.allExercises);
+
     const renderExercise = itemData => {
-        return <ExerciseListItem exercise={itemData.item}
-                                onPress={() => {
-                                    props.navigation.navigate(
-                                        {
-                                            routeName: 'ExerciseDetail',
-                                            params: {
-                                                exerciseId: itemData.item.id
-                                            }
-                                        }
-                                    );
-                                }}
+        return <ExerciseListItem
+            exercise={itemData.item}
+            onPress={() => {
+                store.dispatch(changeActualExercise(itemData.item.id));
+                props.navigation.navigate(
+                    {
+                        routeName: 'ExerciseDetail',
+                        params: {
+                            exerciseLabel: itemData.item.label
+                        }
+                    }
+                );
+            }}
         />
     };
 
     return (
         <View style={styles.component}>
             <ItemList
-                listData={EXERCISES}
+                listData={exercises}
                 renderItemFunction={renderExercise}
             />
         </View>

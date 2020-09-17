@@ -1,21 +1,25 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import ItemList from "../components/ItemList";
-import {EXERCISE_PRESETS} from "../data/dummy-data";
+import {useSelector, useStore} from "react-redux";
 import ExercisePresetListItem from "../components/ExercisePresetListItem";
 import Colors from "../constants/colors";
+import {changeActualPreset} from "../store/actions/exercisePresets";
 
 const ExercisePresetsScreen = props => {
+    const store = useStore();
+    const exercisePresets = useSelector(state => state.exercisePresets.allExercisePresets)
 
     const renderExercisePreset = itemData => {
         return <ExercisePresetListItem
             exercisePreset={itemData.item}
             onPress={() => {
+                store.dispatch(changeActualPreset(itemData.item.id));
                 props.navigation.navigate(
                     {
                         routeName: 'ExercisePresetDetail',
                         params: {
-                            exercisePresetId: itemData.item.id
+                            exercisePresetLabel: itemData.item.label
                         }
                     }
                 );
@@ -27,7 +31,7 @@ const ExercisePresetsScreen = props => {
     return (
         <View style={styles.component}>
             <ItemList
-                listData={EXERCISE_PRESETS}
+                listData={exercisePresets}
                 renderItemFunction={renderExercisePreset}
             />
         </View>
