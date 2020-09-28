@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
-import {EXERCISE_PRESETS, EXERCISES} from "../data/dummy-data";
 import Colors from '../constants/colors';
 import TextField from "../components/field/TextField";
 import LabeledTable from "../components/LabeledTable";
@@ -11,21 +10,16 @@ import UnderlinedLabeledField from "../components/field/UnderlinedLabeledField";
 import CircleSchemaSetContainer from "../components/container/CircleSchemaSetContainer";
 import IncludeIn from "../components/IncludeIn";
 import PresetType from "../model/PresetType";
-import {changeActualPreset} from '../store/actions/exercisePresets'
-import exercisePresetsReducer from "../store/reducers/exercisePresets";
-import {combineReducers, createStore} from 'redux'
 import {useSelector, useStore} from "react-redux";
+import {changeActualExercise} from "../store/actions/exercises";
 
-const rootReducer = combineReducers({
-    exercisePresets: exercisePresetsReducer
-});
-
-const navigateToExercise = (navigation, exerciseId) => {
+const navigateToExercise = (navigation, exercise, store) => {
+    store.dispatch(changeActualExercise(exercise.id));
     navigation.navigate(
         {
             routeName: 'ExerciseDetail',
             params: {
-                exerciseId: exerciseId
+                exerciseLabel: exercise.label
             }
         }
     );
@@ -42,8 +36,8 @@ const generateOrderedLabelsArray = num => {
     return labelsArray;
 };
 
-const createClickableDetail = (id, navigation) => {
-    return <TouchableOpacity onPress={() => navigateToExercise(navigation, id)}>
+const createClickableDetail = (exercise, navigation, store) => {
+    return <TouchableOpacity onPress={() => navigateToExercise(navigation, exercise, store)}>
         <View>
             <TextField style={{textAlign: 'center'}}>VIEW</TextField>
         </View>
@@ -51,15 +45,16 @@ const createClickableDetail = (id, navigation) => {
 };
 
 const ExercisePresetDetailScreen = props => {
+    const store = useStore();
     const exercisePreset = useSelector(state => state.exercisePresets.actualExercisePreset);
     let PresetDetails;
 
     if (exercisePreset.presetType === PresetType.STANDARD_SET) {
-        PresetDetails = <StandardSetDetails data={exercisePreset} navigation={props.navigation}/>;
+        PresetDetails = <StandardSetDetails data={exercisePreset} navigation={props.navigation} store={store}/>;
     } else if (exercisePreset.presetType ===PresetType.SUPER_SET) {
-        PresetDetails = <SuperSetDetails data={exercisePreset} navigation={props.navigation}/>;
+        PresetDetails = <SuperSetDetails data={exercisePreset} navigation={props.navigation} store={store}/>;
     } else if (exercisePreset.presetType === PresetType.CIRCLE) {
-        PresetDetails = <CircleDetails data={exercisePreset} navigation={props.navigation}/>
+        PresetDetails = <CircleDetails data={exercisePreset} navigation={props.navigation} store={store}/>
     }
     return (
         <DetailContainer>
@@ -71,8 +66,8 @@ const ExercisePresetDetailScreen = props => {
             </DetailContainerSection>
             {PresetDetails}
             <DetailContainerSection label="Included In">
-               <IncludeIn value={3} label="training" viewMethood={() => {}}/>
-               <IncludeIn value={8} label="daily workout" viewMethood={() => {}}/>
+               <IncludeIn value={3} label="training" viewMethod={() => {}}/>
+               <IncludeIn value={8} label="daily workout" viewMethod={() => {}}/>
             </DetailContainerSection>
         </DetailContainer>
     );
@@ -89,8 +84,9 @@ const StandardSetDetails = props => {
     const exercisePreset = props.data;
     const {exerciseId, series} = exercisePreset;
     const seriesTableLabels = generateOrderedLabelsArray(series);
+    const state = props.store.getState();
 
-    const exercise = EXERCISES.find(ex => ex.id === exerciseId);
+    const exercise = state.exercises.allExercises.find(ex => ex.id === exerciseId);
 
     return (
         <View style={{alignItems: 'center'}}>
@@ -99,7 +95,7 @@ const StandardSetDetails = props => {
                     topLeftCellLabel="EXERCISE"
                     labelCol={[exercise.name]}
                     labelRow={['DETAILS']}
-                    data={[[createClickableDetail(exercise.id, props.navigation)]]}
+                    data={[[createClickableDetail(exercise, props.navigation, props.store)]]}
                     width={200}
                     labelColWidth={100}
                 />
@@ -121,8 +117,9 @@ const StandardSetDetails = props => {
 const SuperSetDetails = props => {
     const exercisePreset = props.data;
     const {exerciseIds, series, repsPerSeries} = exercisePreset;
+    const state = props.store.getState();
 
-    const exercises = exerciseIds.map(id => EXERCISES.find(exercise => exercise.id === id));
+    const exercises = exerciseIds.map(id => state.exercises.allExercises.find(exercise => exercise.id === id));
     const seriesTableHeadArray = [];
 
     for (let i = 1; i <= series; i++) {
@@ -134,7 +131,7 @@ const SuperSetDetails = props => {
     });
 
     const detailsButtons = exercises.map(ex => {
-        return [createClickableDetail(ex.id, props.navigation)];
+        return [createClickableDetail(ex, props.navigation, props.store)];
     })
 
     return (
@@ -153,7 +150,7 @@ const SuperSetDetails = props => {
                 <LabeledTable
                     topLeftCellLabel="EXERCISES"
                     labelCol={exercises.map(ex => {
-                        return <ColumnClickableLabelCell exercise={ex} navigation={props.navigation}/>;
+                        return <ColumnClickableLabelCell exercise={ex} navigation={props.navigation} store={props.store}/>;
                     })}
                     labelRow={seriesTableHeadArray}
                     data={repsPerSeries}/>
@@ -200,7 +197,7 @@ const ColumnClickableLabelCell = props => {
     const {exercise, navigation} = props;
     return (
         <View>
-            <TouchableOpacity onPress={() => navigateToExercise(navigation, exercise.id)}>
+            <TouchableOpacity onPress={() => navigateToExercise(navigation, exercise, props.store)}>
                 <TextField style={{color: Colors.primary900, textAlign: 'center'}}>{exercise.name}</TextField>
             </TouchableOpacity>
         </View>

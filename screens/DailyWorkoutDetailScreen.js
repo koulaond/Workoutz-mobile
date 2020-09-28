@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
-import {DAILY_WORKOUTS, EXERCISE_PRESETS} from "../data/dummy-data";
 import DetailContainer from "../components/container/DetailContainer";
 import TextFieldLight from "../components/field/TextFieldLight";
 import DetailContainerSection from "../components/container/DetailContainerSection";
@@ -8,20 +7,24 @@ import TextField from "../components/field/TextField";
 import IncludeIn from "../components/IncludeIn";
 import LabeledTable from "../components/LabeledTable";
 import Colors from "../constants/colors";
+import {useSelector, useStore} from "react-redux";
+import {changeActualPreset} from "../store/actions/exercisePresets";
 
-const navigateToExercisePreset = (navigation, exercisePresetId) => {
+const navigateToExercisePreset = (navigation, presetId, store) => {
+    store.dispatch(changeActualPreset(presetId));
+    let label = store.getState().exercisePresets.actualExercisePreset.label;
     navigation.navigate(
         {
             routeName: 'ExercisePresetDetail',
             params: {
-                exercisePresetId: exercisePresetId
+                exercisePresetLabel: label
             }
         }
     );
 }
 
-const createClickableDetail = (id, navigation) => {
-    return <TouchableOpacity onPress={() => navigateToExercisePreset(navigation, id)}>
+const createClickableDetail = (presetId, navigation, store) => {
+    return <TouchableOpacity onPress={() => navigateToExercisePreset(navigation, presetId, store)}>
         <View>
             <TextField style={{textAlign: 'center'}}>VIEW</TextField>
         </View>
@@ -29,19 +32,20 @@ const createClickableDetail = (id, navigation) => {
 };
 
 const DailyWorkoutDetailScreen = props => {
-    const workoutId = props.navigation.getParam('workoutId');
-    const workout = DAILY_WORKOUTS.find(wo => wo.id === workoutId);
+    const store = useStore();
+    const workout = useSelector(state => state.dailyWorkouts.actualDailyWorkout);
+    const exercisePresets = useSelector(state => state.exercisePresets.allExercisePresets);
 
     const exercisePresetsDetailCols = workout.exerciseUnits
-        .map(exUnit => EXERCISE_PRESETS.find(preset => preset.id === exUnit.exercisePresetId))
+        .map(exUnit => exercisePresets.find(preset => preset.id === exUnit.exercisePresetId))
         .map((preset) => {
             return <TextField style={{color: Colors.primary900, textAlign: 'center'}}
                               key={preset.id}>{preset.label}</TextField>
         });
 
 
-    const detailsButtons = workout.exerciseUnits.map(exUnit => {
-        return [createClickableDetail(exUnit.exercisePresetId, props.navigation)];
+    const detailsButtons = workout.exerciseUnits.map(unit => {
+        return [createClickableDetail(unit.exercisePresetId, props.navigation, store)];
     })
 
     return (
@@ -75,10 +79,8 @@ const DailyWorkoutDetailScreen = props => {
 };
 
 DailyWorkoutDetailScreen.navigationOptions = (navigationData) => {
-    const workoutId = navigationData.navigation.getParam('workoutId');
-    const workout = DAILY_WORKOUTS.find(wo => wo.id === workoutId);
     return {
-        headerTitle: workout.name
+        headerTitle: navigationData.navigation.getParam('workoutLabel')
     };
 };
 

@@ -1,23 +1,25 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import ItemList from "../components/ItemList";
 import DailyWorkoutListItem from "../components/DailyWorkoutListItem";
 import Colors from "../constants/colors";
-import {useSelector} from "react-redux";
+import {useSelector, useStore} from "react-redux";
+import {changeActualWorkout} from "../store/actions/dailyWorkouts";
 
 const DailyWorkoutsScreen = props => {
-
+    const store = useStore();
     const dailyWorkouts = useSelector(state => state.dailyWorkouts.allDailyWorkouts);
 
     const renderDailyWorkout = itemData => {
         return <DailyWorkoutListItem
             dailyWorkout={itemData.item}
             onPress={() => {
+                store.dispatch(changeActualWorkout(itemData.item.id));
                 props.navigation.navigate(
                     {
                         routeName: 'DailyWorkoutDetail',
                         params: {
-                            workoutId: itemData.item.id
+                            workoutLabel: itemData.item.name
                         }
                     }
                 );
